@@ -12,6 +12,8 @@ class Solution:
 
         list_of_points = []
 
+        # some optimization can be applied here - handle memory with care, direct output result e.t.c.
+
         with (open(self._file_name1, 'r', encoding='UTF-8') as file1,
               open(self._file_name2, 'r', encoding='UTF-8') as file2):
 
@@ -53,10 +55,9 @@ class Solution:
 
 
 if __name__ == '__main__':
-
     # file_name1 = 'circle_parameters.txt'
     # file_name2 = 'list_of_points.txt'
-
+    #
     file_name1 = input()
     file_name2 = input()
 
