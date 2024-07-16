@@ -8,12 +8,12 @@ class Solution:
 
         temp_list = []
 
+        # read input file
         with open(self._file_name, 'r', encoding='UTF-8') as file:
             for line in file.readlines():
                 temp_list.append(int(line.strip()))
 
         temp_list1 = sorted(temp_list)
-
         min_value, max_value = min(temp_list1), max(temp_list1)
 
         # store at least 1st sum of absolute delta's -> to check with later on
