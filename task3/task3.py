@@ -1,47 +1,55 @@
 class Solution:
 
     def __init__(self, file1, file2, file3):
-        self.file1 = file1
-        self.file2 = file2
-        self.file3 = file3
+        self._file1 = file1
+        self._file2 = file2
+        self._file3 = file3
+        self._values_baked = dict()
         self.solution()
-        self.values_baked = dict()
 
     def solution(self):
         import json
 
-        with (open(self.file1, 'r') as values_file,
-              open(self.file2, 'r') as tests_file,
-              open(self.file3, 'w') as report_file):
+        with (open(self._file1, 'r') as values_file,
+              open(self._file2, 'r') as tests_file,
+              open(self._file3, 'w') as report_file):
             values_data = json.load(values_file)
             tests_data = json.load(tests_file)
 
             unpacked_values = [list(i.values()) for i in values_data['values']]
-            self.values_baked = {i[0]: i[1] for i in unpacked_values}
 
-            temp_walker1 = self.magic_walking(tests_data)
+            self.values_baked = {a: b for a, b in unpacked_values}
 
-            json.dump(temp_walker1, report_file)
+            temp_walker1 = self.recursive_reconstruction(tests_data)
 
-    def magic_walking(self, obj):
+            try:
+                json.dump(temp_walker1, report_file)
+            except Exception as e:
+                print('Error', e, 'has occurred')
 
+    def recursive_reconstruction(self, obj):
+
+        # 1st recursive basic end
         if isinstance(obj, dict):
             temp_dict = dict()
             for k, v in obj.items():
-                temp_dict.update({k: self.magic_walking(v)})
+                temp_dict.update({k: self.recursive_reconstruction(v)})
 
+            # reconstruction process itself
             if 'id' in temp_dict.keys() and 'value' in temp_dict.keys():
                 if temp_dict['id'] in self.values_baked:
                     temp_dict['value'] = self.values_baked[temp_dict['id']]
 
             return temp_dict
 
+        # 2nd recursive basic end
         if isinstance(obj, list):
             temp_list = []
             for pos in obj:
-                temp_list.append(self.magic_walking(pos))
+                temp_list.append(self.recursive_reconstruction(pos))
             return temp_list
 
+        # Final end of recursion
         return obj
 
 
