@@ -46,12 +46,12 @@ class Solution:
 
 
 if __name__ == '__main__':
-    filename1 = 'values.json'
-    filename2 = 'tests.json'
-    filename3 = 'report.json'
-
-    # filename1 = input()
-    # filename2 = input()
-    # filename3 = input()
+    # filename1 = 'values.json'
+    # filename2 = 'tests.json'
+    # filename3 = 'report.json'
+    #
+    filename1 = input()
+    filename2 = input()
+    filename3 = input()
 
     solution = Solution(filename1, filename2, filename3)
