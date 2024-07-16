@@ -3,6 +3,7 @@ class Solution:
     def __init__(self, m, n):
         self._m = m
         self._n = n
+        print(self.calculate_answer())
 
     def calculate_answer(self):
         from itertools import cycle
@@ -29,4 +30,3 @@ class Solution:
 
 if __name__ == '__main__':
     solution1 = Solution(int(input()), int(input()))
-    print(solution1.calculate_answer())

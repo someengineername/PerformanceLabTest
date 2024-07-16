@@ -1,82 +1,41 @@
-import random
-import time
+class Solution:
 
-list_db = [[random.randint(-10000, 10000) for i in range(1, random.randint(2, 5))] for _ in range(1000)]
-print(list_db)
+    def __init__(self, file_name: str):
+        self._file_name = file_name
+        print(self.calculate_answer())
 
+    def calculate_answer(self):
 
-# solution here:...
+        temp_list = []
 
-def solution1(input_list):
-    temp_list1 = sorted(input_list)
+        with open(self._file_name, 'r', encoding='UTF-8') as file:
+            for line in file.readlines():
+                temp_list.append(int(line.strip()))
 
-    min_value, max_value = min(temp_list1), max(temp_list1)
+        temp_list1 = sorted(temp_list)
 
-    last_value_storage = sum([abs(temp_list1[0] - j) for j in temp_list1])
+        min_value, max_value = min(temp_list1), max(temp_list1)
 
-    for i in range(min_value + 1, max_value + 1):
-        delta_values = [abs(i - j) for j in temp_list1]
+        # store at least 1st sum of absolute delta's -> to check with later on
+        last_value_storage = sum([abs(temp_list1[0] - j) for j in temp_list1])
 
-        sum_of_delta_values = sum(delta_values)
+        for i in range(min_value + 1, max_value + 1):
+            delta_values = [abs(i - j) for j in temp_list1]
 
-        # if calculated value greater than stored in memory - break the cycle, return value in memory
-        if sum_of_delta_values > last_value_storage:
-            break
-        # if calculated value lower - than exchange value and keep on
-        else:
-            last_value_storage = sum_of_delta_values
-    return last_value_storage
+            sum_of_delta_values = sum(delta_values)
 
-
-def solution2(input_list):
-    temp_list1 = sorted(input_list)
-    # print('orient:', temp_list1)
-    min_value, max_value = min(temp_list1), max(temp_list1)
-
-    total_delta_ranges = []
-
-    for i in range(min_value, max_value + 1):
-        delta_values = [abs(i - j) for j in temp_list1]
-
-        # print(delta_values)
-
-        sum_of_delta_values = sum(delta_values)
-
-        # if list not empty - just lay down value
-        if total_delta_ranges:
-
-            # check if value bigger than last
-            if sum_of_delta_values > total_delta_ranges[-1]:
+            # if calculated value greater than that one stored in memory - break the cycle
+            if sum_of_delta_values > last_value_storage:
                 break
-
-            # if yes - then break and return result as [-1]
+            # if calculated value lower -> exchange value and go down by cycle
             else:
-                total_delta_ranges.append(sum_of_delta_values)
+                last_value_storage = sum_of_delta_values
 
-        # if list empty - just lay down value
-        else:
-            total_delta_ranges.append(sum_of_delta_values)
-
-    # print(total_delta_ranges)
-
-    return total_delta_ranges[-1]
+        return last_value_storage
 
 
-# print(solution1(temp_list))
-# print(solution2(temp_list))
-#
-#
+if __name__ == '__main__':
+    # file_name_input = 'test_file.txt'
+    file_name_input = input()
 
-time1 = time.perf_counter()
-for test_list in list_db:
-    solution1(test_list)
-time2 = time.perf_counter()
-dt = time2 - time1
-print('time for sol1:', dt)
-
-time1 = time.perf_counter()
-for test_list in list_db:
-    solution2(test_list)
-time2 = time.perf_counter()
-dt = time2 - time1
-print('time for sol2:', dt)
+    solution = Solution(file_name_input)
