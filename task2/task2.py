@@ -7,7 +7,7 @@ class Solution:
     def print_answer(self):
         from collections import namedtuple
 
-        # namedtuple for circle/points description in simple from - to avoid classes
+        # namedtuple for circle/points description in simple form - to avoid classes
         Point = namedtuple('Point', 'x y')
         Circle = namedtuple('Circle', 'x y r')
 
