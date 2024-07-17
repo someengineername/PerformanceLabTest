@@ -18,6 +18,7 @@ class Solution:
 
             unpacked_values = [list(i.values()) for i in values_data['values']]
 
+            # prepare values from values_file with guideline of {id:value...id:value} to easy comparison down later
             self.values_baked = {a: b for a, b in unpacked_values}
 
             temp_walker1 = self.recursive_reconstruction(tests_data)
@@ -29,7 +30,7 @@ class Solution:
 
     def recursive_reconstruction(self, obj):
 
-        # 1st recursive basic end
+        # 1st recursive end - obj is dict, so traverse by key:value
         if isinstance(obj, dict):
             temp_dict = dict()
             for k, v in obj.items():
@@ -42,14 +43,14 @@ class Solution:
 
             return temp_dict
 
-        # 2nd recursive basic end
+        # 2nd recursive end - obj is list, so traverse by elements
         if isinstance(obj, list):
             temp_list = []
             for pos in obj:
                 temp_list.append(self.recursive_reconstruction(pos))
             return temp_list
 
-        # Final end of recursion
+        # Base end (obj is non-list & non-dict)
         return obj
 
 

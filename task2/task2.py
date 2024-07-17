@@ -7,6 +7,7 @@ class Solution:
     def print_answer(self):
         from collections import namedtuple
 
+        # namedtuple for circle/points description in simple from - to avoid classes
         Point = namedtuple('Point', 'x y')
         Circle = namedtuple('Circle', 'x y r')
 
@@ -22,24 +23,25 @@ class Solution:
 
             # prepare circle data
 
+            # reading file with data
             for line in file1.readlines():
                 circle_raw_data.append(line.strip())
-
+            # value formation
             x, y = [float(i) for i in circle_raw_data[0].split(' ')]
             r = float(circle_raw_data[1])
-
             circle = Circle(x, y, r)
 
             # prepare points data -> store it in list
 
+            # reading file with data
             for line in file2.readlines():
                 points_raw_data.append(line.strip())
-
+            # value formation - list of points, t.b.e.
             for raw_pos in points_raw_data:
                 temp_list1 = raw_pos.split(' ')
                 list_of_points.append(Point(*[float(i) for i in temp_list1]))
 
-        # check each point to circle parameters and print-out answer
+        # check each point in list to circle's parameters and print-out answer
 
         for point in list_of_points:
 
@@ -57,7 +59,7 @@ class Solution:
 if __name__ == '__main__':
     # file_name1 = 'circle_parameters.txt'
     # file_name2 = 'list_of_points.txt'
-    #
+
     file_name1 = input()
     file_name2 = input()
 
