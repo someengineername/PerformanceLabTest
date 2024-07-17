@@ -1,3 +1,6 @@
+import sys
+
+
 class Solution:
 
     def __init__(self, file_name: str):
@@ -35,7 +38,9 @@ class Solution:
 
 
 if __name__ == '__main__':
-    # file_name_input = 'test_file.txt'
-    file_name_input = input()
+    a = sys.argv[-1]
 
-    solution = Solution(file_name_input)
+    # file_name_input = 'test_file.txt'
+    # file_name_input = input()
+
+    solution = Solution(a)
