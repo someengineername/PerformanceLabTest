@@ -1,9 +1,13 @@
+import sys
+
+
 class Solution:
 
     def __init__(self, m, n):
         self._m = m
         self._n = n
         print(self.calculate_answer())
+        # input()
 
     def calculate_answer(self):
         from itertools import cycle
@@ -29,4 +33,6 @@ class Solution:
 
 
 if __name__ == '__main__':
-    solution1 = Solution(int(input()), int(input()))
+    a, b = sys.argv[1:]
+
+    solution1 = Solution(int(a), int(b))
